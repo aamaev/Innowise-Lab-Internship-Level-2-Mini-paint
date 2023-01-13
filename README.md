@@ -63,7 +63,10 @@ npm i @reduxjs/toolkit
 
 
 ## DATABASE SNAPSHOT
-![img](./db_snapshot.jpg)
+![img](./DBSnapshot.png)
+
+## STORAGE SNAPSHOT
+![img](./StorageSnapshot.png)
 
 ## APPLICATION STACK
 ```
