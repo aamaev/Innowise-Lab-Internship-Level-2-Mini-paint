@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import AuthPage from './components/AuthPage';
+import Feed from './components/Feed';
+import CreateImg from './components/CreateImg';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+        <Route path='/' 
+               element={<AuthPage />}/>
+        <Route path='/signin' 
+               element={<AuthPage />} />
+        <Route path='/signup' 
+               element={<AuthPage />} />
+        <Route path='/feed' 
+               element={<Feed />} />
+        <Route path='/create' 
+               element={<CreateImg />} />
+    </Routes>
   );
 }
 
