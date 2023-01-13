@@ -1,11 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAppSelector } from '../hooks/redux';
-import { startDrawingPencil, endDrawingPencil, drawPencil } from '../Tools/Pencil';
-import { startDrawingSquare, drawSquare } from '../Tools/Square';
-import { startDrawingCircle, drawCircle } from '../Tools/Circle';
-import { startDrawingLine, drawLine } from '../Tools/Line';
 import SaveImg from './SaveImg';
-
+import {draw, startDrawing, endDrawing} from '../Tools/drawTools';
 
 const Canvas: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -15,7 +11,25 @@ const Canvas: React.FC = () => {
     const { lineColor } = useAppSelector(state => state.pencilReducer);
     const { lineWidth } = useAppSelector(state => state.pencilReducer);
     const { type } = useAppSelector(state => state.pencilReducer);
-    
+
+    const mouseDownHandler = useCallback((e: any) => {
+        startDrawing(e, type, ctxRef, canvasRef);
+        setIsDrawing(true);
+    }, [type]);
+
+    const mouseMoveHandler = useCallback((e: any) => {
+        if (!isDrawing){
+            return;
+        }
+        draw(e, type, ctxRef, canvasRef, lineColor);
+    }, [type, isDrawing, lineColor]);
+
+    const mouseUpHandler = useCallback(() => {
+        endDrawing(type, ctxRef);
+        setIsDrawing(false);
+        saveChanges();
+    }, [type]);
+
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) {
@@ -25,7 +39,6 @@ const Canvas: React.FC = () => {
         if (!ctx) {
             return;
         }
-        setImage(canvas.toDataURL('image/png'));
         switch(type){
             case('ERASURE'):
                 ctx.strokeStyle = '#FFFFFF';
@@ -36,7 +49,17 @@ const Canvas: React.FC = () => {
         }
         ctx.lineWidth = lineWidth;
         ctxRef.current = ctx;
-    }, [type, image, lineColor, lineWidth]);
+
+        canvas.addEventListener(('mousedown'), mouseDownHandler);
+        canvas.addEventListener(('mousemove'), mouseMoveHandler);
+        canvas.addEventListener(('mouseup'), mouseUpHandler);
+        
+        return () => {
+            canvas.removeEventListener('mousedown', mouseDownHandler);    
+            canvas.removeEventListener('mousemove', mouseMoveHandler);  
+            canvas.removeEventListener('mouseup', mouseUpHandler); 
+        }
+    }, [type, image, lineColor, lineWidth, mouseDownHandler, mouseMoveHandler, mouseUpHandler]);
 
     const saveChanges = () => {
         const canvas = canvasRef.current; 
@@ -45,71 +68,7 @@ const Canvas: React.FC = () => {
         }
         setImage(canvas.toDataURL('image/png'));  
     }
-    console.log(image);
-    
-    const startDrawing = (e: any): void => {
-        switch(type){
-            case 'PENCIL': 
-                startDrawingPencil(e, ctxRef);
-                break;
-            case 'ERASURE': 
-                startDrawingPencil(e, ctxRef);
-                break;   
-            case 'SQUARE': 
-                startDrawingSquare(e, ctxRef, canvasRef);
-                break;  
-            case 'CIRCLE': 
-                startDrawingCircle(e, ctxRef, canvasRef);
-                break;  
-            case 'LINE': 
-                startDrawingLine(e, ctxRef, canvasRef);
-                break;  
-            default: return;
-        }
-        setIsDrawing(true);
-    }
 
-    const endDrawing = (): void => {
-        switch(type){
-            case 'PENCIL': 
-                endDrawingPencil(ctxRef);
-                setIsDrawing(false);
-                break;
-            case 'ERASURE': 
-                endDrawingPencil(ctxRef);
-                setIsDrawing(false);
-                break;
-            default: 
-                setIsDrawing(false);
-                break;
-        }
-        saveChanges();
-    } 
-
-    const draw = (e: any): void => {
-        if (!isDrawing){
-            return;
-        }
-        switch(type){
-            case 'PENCIL': 
-                drawPencil(e, ctxRef);
-                break;
-            case 'ERASURE': 
-                drawPencil(e, ctxRef);
-                break;
-            case 'SQUARE': 
-                drawSquare(e, ctxRef, lineColor, canvasRef);
-                break;
-            case 'CIRCLE': 
-                drawCircle(e, ctxRef, lineColor, canvasRef);
-                break;
-            case 'LINE': 
-                drawLine(e, ctxRef, lineColor, canvasRef);
-                break;
-            default: break;
-        }
-    }
-    
     return (
         <>
             <div>
@@ -117,9 +76,7 @@ const Canvas: React.FC = () => {
                         ref={canvasRef} 
                         width={500} 
                         height={500}
-                        onMouseDown={startDrawing}
-                        onMouseUp={endDrawing}
-                        onMouseMove={draw} />
+                        />
                 <SaveImg img = { image }/>
             </div>
         </>
