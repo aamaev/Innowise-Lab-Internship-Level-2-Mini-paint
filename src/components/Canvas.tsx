@@ -37,8 +37,16 @@ const Canvas: React.FC = () => {
         ctx.lineWidth = lineWidth;
         ctxRef.current = ctx;
     }, [type, image, lineColor, lineWidth]);
-    
+
+    const saveChanges = () => {
+        const canvas = canvasRef.current; 
+        if (!canvas) {
+            return;
+        }
+        setImage(canvas.toDataURL('image/png'));  
+    }
     console.log(image);
+    
     const startDrawing = (e: any): void => {
         switch(type){
             case 'PENCIL': 
@@ -75,8 +83,8 @@ const Canvas: React.FC = () => {
                 setIsDrawing(false);
                 break;
         }
+        saveChanges();
     } 
-
 
     const draw = (e: any): void => {
         if (!isDrawing){
@@ -102,7 +110,6 @@ const Canvas: React.FC = () => {
         }
     }
     
-
     return (
         <>
             <div>

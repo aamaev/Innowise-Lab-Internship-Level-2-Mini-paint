@@ -1,46 +1,109 @@
-# Getting Started with Create React App
+**CLEVER TO-DO LIST**
+=====================
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## TASK
 
-## Available Scripts
+[doc, click](https://drive.google.com/file/d/1C_WlHrOBj_KRwdCMsoHdSyGG12xOy_wA/view?usp=sharing)
+## HOW TO RUN THE APP
 
-In the project directory, you can run:
-
-### `npm start`
-
+```
+npm start
+```
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**env** \
+.env template:
+```
+REACT_APP_FIREBASE_APIKEY = "your api key here.."
+REACT_APP_FIREBASE_AUTHDOMAIN = "..."
+REACT_APP_FIREBASE_PROJECTID = "..."
+REACT_APP_FIREBASE_STORAGEBUCKET = "..."
+REACT_APP_FIREBASE_MESSAGINGSENDERID = "..."
+REACT_APP_FIREBASE_APPID = "..."
+REACT_APP_FIREBASE_DATABASEURL = "..."
+```
+**modules**\
+firebase:
+```
+npm i firebase
+```
+react-firebase-hooks:
+```
+npm i react-firebase-hooks
+```
+react-hot-toast:
+```
+npm i react-hot-toast
+```
+react-icons:
+```
+npm i react-icons
+```
+react-router-dom:
+```
+npm i react-router-dom
+```
+react-uuid:
+```
+npm i react-uuid
+```
+tailwindcss:
+```
+npm install -D tailwindcss
+```
+react-redux: 
+```
+npm i @reduxjs/toolkit
+```
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## DATABASE SNAPSHOT
+![img](./db_snapshot.jpg)
 
-### `npm run eject`
+## APPLICATION STACK
+```
+react(18.2.0)
+firebase(9.15.0)
+moment(2.29.4)
+tailwindcss(3.2.4)
+react-firebase-hooks(5.1.1)
+react-hot-toast(2.4.0)
+react-icons(4.7.1)
+react-router-dom(6.4.5)
+react-uuid(2.0.0)
+react-redux(8.0.5)
+redux(4.2.0),
+@reduxjs/toolkit(1.9.1),
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## COMPONENTS
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In general directory you can see the next files and directories:
+```
+/src                  all project components: js and css
+    /components   
+    /contextx
+    /fetchData
+    /hooks
+    /interfaces
+    /reducers
+    /store  
+    /Tools
+    App.js 
+    firebase.json
+    index.css
+    index.js
+package.json          package.json file
+README.md             this file
+tailwind.config.js    tailwind config
+.gitignore            git ignore
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## AUTHOR
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Amaev Artem](https://github.com/aamaev)
