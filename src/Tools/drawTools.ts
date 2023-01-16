@@ -2,8 +2,9 @@ import { startDrawingPencil, endDrawingPencil, drawPencil } from '../Tools/Penci
 import { startDrawingSquare, drawSquare } from '../Tools/Square';
 import { startDrawingCircle, drawCircle } from '../Tools/Circle';
 import { startDrawingLine, drawLine } from '../Tools/Line';
+import { startDrawingStar, drawStar } from '../Tools/Star';
 
-export const draw = (e: any, type: any, ctxRef: any, canvasRef: any, lineColor: string): void => {
+export const draw = (e: MouseEvent, type: string, ctxRef: any, canvasRef: any, lineColor: string): void => {
     switch(type){
         case 'PENCIL': 
             drawPencil(e, ctxRef);
@@ -20,11 +21,14 @@ export const draw = (e: any, type: any, ctxRef: any, canvasRef: any, lineColor: 
         case 'LINE': 
             drawLine(e, ctxRef, lineColor, canvasRef);
             break;
+        case 'STAR': 
+            drawStar(e, ctxRef, lineColor, canvasRef);
+            break;    
         default: break;
     }
 }
 
-export const startDrawing = (e: any, type: any, ctxRef: any, canvasRef: any): void => {
+export const startDrawing = (e: MouseEvent, type: string, ctxRef: any, canvasRef: any): void => {
     switch(type){
         case 'PENCIL': 
             startDrawingPencil(e, ctxRef);
@@ -41,11 +45,14 @@ export const startDrawing = (e: any, type: any, ctxRef: any, canvasRef: any): vo
         case 'LINE': 
             startDrawingLine(e, ctxRef, canvasRef);
             break;  
+        case 'STAR': 
+            startDrawingStar(e, ctxRef, canvasRef);
+            break;      
         default: return;
     }
 }
 
-export const endDrawing = (type: any, ctxRef: any): void => {
+export const endDrawing = (type: string, ctxRef: any): void => {
     switch(type){
         case 'PENCIL': 
             endDrawingPencil(ctxRef);

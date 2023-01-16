@@ -3,12 +3,9 @@ import FeedItem from './FeedItem';
 import { useState } from 'react';
 import { fetchImages } from '../fetchData/FetchImages';
 import uuid from 'react-uuid';
+import { FeedGridProps } from '../interfaces/interfaces';
 
-interface Props{
-    filter: string,
-}
-
-const FeedGrid = ({ filter }: Props) => {
+const FeedGrid = ({ filter }: FeedGridProps) => {
     const [images, setImage] = useState<any[]>();
 
     useEffect(() => { 

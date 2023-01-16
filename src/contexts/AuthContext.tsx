@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect, ReactNode } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import toast, {Toaster} from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -7,10 +7,7 @@ import { ref, set } from 'firebase/database';
 import { IAuthContext } from "../interfaces/interfaces";
 import { useAppDispatch } from '../hooks/redux';
 import { userSlice } from '../reducers/UserSlice';
-
-interface Props {
-    children: ReactNode;
-}
+import { AuthContextProviderProps } from "../interfaces/interfaces";
 
 const authContextDefaults: IAuthContext = {
     signIn: (auth: any, email: string, password: string) => null,
@@ -20,7 +17,7 @@ const authContextDefaults: IAuthContext = {
 
 export const AuthContext = createContext<IAuthContext>(authContextDefaults);
 
-const AuthContextProvider = ({children}: Props) => {
+const AuthContextProvider = ({children}: AuthContextProviderProps) => {
     const { setUserEmail } = userSlice.actions;
     const dispatch = useAppDispatch(); 
 

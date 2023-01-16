@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsFillEraserFill, BsFillPencilFill, BsSquare, BsSlashLg, BsCircle } from 'react-icons/bs';
+import { BsFillEraserFill, BsFillPencilFill, BsSquare, BsSlashLg, BsCircle, BsStar } from 'react-icons/bs';
 import { useAppDispatch } from '../hooks/redux';
 import { pencilSlice } from '../reducers/PencilSlice';
 
@@ -15,6 +15,7 @@ const Toolbar = () => {
             <button className='m-4 block'><BsSquare size={30} onClick={() => dispatch(setType('SQUARE'))} /></button>  
             <button className='m-4 block'><BsSlashLg size={30} onClick={() => dispatch(setType('LINE'))} /></button>  
             <button className='m-4 block'><BsCircle size={30} onClick={() => dispatch(setType('CIRCLE'))} /></button>
+            <button className='m-4 block'><BsStar size={30} onClick={() => dispatch(setType('STAR'))} /></button>
             <input type='color' 
                 onChange={(e) => dispatch(setLineColor(e.target.value))}
                 className='m-4 w-8 h-6'

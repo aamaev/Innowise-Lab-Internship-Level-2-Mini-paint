@@ -3,7 +3,7 @@ import { useAppSelector } from '../hooks/redux';
 import SaveImg from './SaveImg';
 import {draw, startDrawing, endDrawing} from '../Tools/drawTools';
 
-const Canvas: React.FC = () => {
+const Canvas = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
     const [isDrawing, setIsDrawing] = useState<boolean>(false);

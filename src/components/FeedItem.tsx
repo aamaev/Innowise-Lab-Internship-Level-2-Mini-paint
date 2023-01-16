@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { FeedItemProps } from '../interfaces/interfaces';
 
-interface Props {
-    imageID: string
-}
-
-const FeedItem = ({ imageID }: Props) => {  
+const FeedItem = ({ imageID }: FeedItemProps) => {  
     const [imgURL, setImgURL] = useState('');
     
     const storage = getStorage();

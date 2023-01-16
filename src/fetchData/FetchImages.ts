@@ -8,7 +8,7 @@ export const fetchImages = async () => {
         res.prefixes.forEach(async (folderRef) => {
             try {
                 const res = await listAll(folderRef);
-                res.items.forEach((itemRef: any) => {
+                res.items.forEach((itemRef) => {
                     newImage.push(itemRef.fullPath);  
                 });        
             } catch {

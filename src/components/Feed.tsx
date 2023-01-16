@@ -12,7 +12,7 @@ export interface StorageReference{
 
 const Feed = () => {
     const { email } = useAppSelector(state => state.userReducer);
-    const [usersEmails, setUserEmail] = useState<any>([]);
+    const [usersEmails, setUserEmail] = useState<string[]>([]);
     const [filter, setFilter] = useState<string>('');
     const navigate = useNavigate();
 

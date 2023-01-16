@@ -5,14 +5,14 @@ let mousePosition = {
 
 let saved = '';
 
-export const startDrawingSquare = (e: any, ctxRef: any, canvasRef: any) => {
+export const startDrawingSquare = (e: MouseEvent | any, ctxRef: any, canvasRef: any) => {
     ctxRef.current!.beginPath();
     mousePosition.startX = e.pageX - e.target.offsetLeft;
     mousePosition.startY = e.pageY - e.target.offsetTop;
     saved = canvasRef.current.toDataURL();
 } 
 
-export const drawSquare = (e: any, ctxRef: any, lineColor: string, canvasRef: any) => {
+export const drawSquare = (e: MouseEvent | any, ctxRef: any, lineColor: string, canvasRef: any) => {
     let currentX = e.pageX - e.target.offsetLeft;
     let currentY = e.pageY - e.target.offsetTop;
     let width =  currentX - mousePosition.startX;

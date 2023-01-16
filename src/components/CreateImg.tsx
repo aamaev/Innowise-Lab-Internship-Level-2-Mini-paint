@@ -6,6 +6,7 @@ import Header from './Header';
 
 const CreateImg: React.FC  = () => {
     const { email } = useAppSelector(state => state.userReducer);
+    
     return (
         <div>
             <Header email={ email } /> 
