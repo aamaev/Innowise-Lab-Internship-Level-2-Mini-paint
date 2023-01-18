@@ -76,7 +76,7 @@ const Canvas = () => {
                         ref={canvasRef} 
                         width={500} 
                         height={500}
-                        />
+                />
                 <SaveImg img = { image }/>
             </div>
         </>

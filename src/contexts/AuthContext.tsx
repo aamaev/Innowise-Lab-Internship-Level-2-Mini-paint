@@ -9,9 +9,10 @@ import { useAppDispatch } from '../hooks/redux';
 import { userSlice } from '../reducers/UserSlice';
 import { AuthContextProviderProps } from "../interfaces/interfaces";
 
+
 const authContextDefaults: IAuthContext = {
-    signIn: (auth: any, email: string, password: string) => null,
-    signUp: (auth: any, email: string, password: string) => null,
+    signIn: (auth: object, email: string, password: string) => null,
+    signUp: (auth: object, email: string, password: string) => null,
     logOut: () => null
 };
 

@@ -37,5 +37,11 @@ export interface FeedItemProps {
     imageID: string
 }
 
+export interface SaveImgProps { 
+    img: string;
+}
+
+
+
 
 

@@ -35,7 +35,6 @@ const star = (ctx: any, R: number, cX: number, cY: number, N: number) => {
   }
 
 export const drawStar = (e: MouseEvent | any, ctxRef: any, lineColor: string, canvasRef: any) => {
-    console.log(e);
     let currentX = e.pageX - e.target.offsetLeft;
     let currentY = e.pageY - e.target.offsetTop;
     let width =  currentX - mousePosition.startX;

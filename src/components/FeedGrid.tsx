@@ -4,23 +4,27 @@ import { useState } from 'react';
 import { fetchImages } from '../fetchData/FetchImages';
 import uuid from 'react-uuid';
 import { FeedGridProps } from '../interfaces/interfaces';
+import { BiLoader } from 'react-icons/bi';
 
 const FeedGrid = ({ filter }: FeedGridProps) => {
     const [images, setImage] = useState<any[]>();
-
+    const [isLoading, setLoading] = useState<boolean>(false);
+    
     useEffect(() => { 
-        let timer: any;
+        setLoading(true);
         fetchImages()
             .then(res => {
-                timer = setTimeout(() => {
-                    setImage(res);  
-                }, 200);       
+                setLoading(false); 
+                setImage(res);     
             })
-            .catch(error => {
-                console.log(error);
-            })
-        return () => clearTimeout(timer);
+            .catch(() => {
+                setLoading(false);   
+            });
     }, []);
+
+    if (isLoading) {
+        return <BiLoader size={50} className='m-auto max-w-xl'/>;
+    }
     
     return (
         <div className='grid grid-cols-3 gap-3'>
@@ -32,8 +36,9 @@ const FeedGrid = ({ filter }: FeedGridProps) => {
                 images.map(item => (
                     <FeedItem key={ uuid() } imageID={ item } />))
             )
-        }
-        </div>   
+        }     
+        </div>
+
     );
 };
 

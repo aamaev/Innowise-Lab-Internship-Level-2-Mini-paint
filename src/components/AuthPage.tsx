@@ -19,23 +19,45 @@ const AuthPage = () => {
         signUp(auth, email, password);
     }
 
+    const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);    
+    }
+
+    const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);    
+    }
+
+    const signHandler = (e: React.FormEvent) => {
+        if (pathname === '/signin') {
+            return signInForm(e);
+        } else {
+            return signUpForm(e);
+        }     
+    }
+
     return (
-        pathname === '/signin' ? 
         <div className="m-auto max-w-xl pt-20">
             <div>
-                <h1 className='text-2xl font-bold py-2'>Sign in to your account</h1>
-                <p>
-                    Don't have an account yet? <Link to='/signup' className='underline'>Sign up</Link>
-                </p>
+                {pathname === '/signin' ? 
+                    (<>
+                        <h1 className='text-2xl font-bold py-2'>Sign in to your account</h1>
+                        <p>Don't have an account yet? <Link to='/signup' className='underline'>Sign up</Link></p>
+                    </>)
+                    : 
+                    (<>
+                        <h1 className='text-2xl font-bold py-2'>Sign up</h1>
+                        <p>Already have an account yet? <Link to='/signin' className='underline'>Sign in</Link></p>
+                    </>)
+                }
             </div>
-            <form onSubmit={signInForm}>
+            <form onSubmit={signHandler}>
                 <div className="flex flex-col py-5">
                     <label>Email</label>
                     <input className="border p-2 focus:outline-none email-input" 
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        />     
+                        onChange={emailHandler}
+                    />     
                 </div>
                 <div className="flex flex-col py-5">
                     <label>Password</label>
@@ -43,39 +65,12 @@ const AuthPage = () => {
                         type="password"
                         value={password}
                         autoComplete='on'
-                        onChange={(e) => setPassword(e.target.value)}
-                        />    
+                        onChange={passwordHandler}
+                    />    
                 </div>
-                <button className="rounded border border-gray-400 bg-gray-500 px-4 py-2 text-sm font-medium text-white hover:bg-transparent hover:bg-gray-400">Sign in</button>
+                <button className="rounded border border-gray-400 bg-gray-500 px-4 py-2 text-sm font-medium text-white hover:bg-transparent hover:bg-gray-400"> { pathname === '/signin' ? <p>Sign in</p> : <p>Sign up</p> } </button>
             </form>
-        </div>   
-        :
-        <div className="m-auto max-w-xl pt-20">
-            <div>
-                <h1 className='text-2xl font-bold py-2'>Sign up</h1>
-                <p>
-                    Already have an account yet? <Link to='/signin' className='underline'>Sign in</Link>
-                </p>
-            </div>
-            <form onSubmit={signUpForm}>
-                <div className="flex flex-col py-5">
-                    <label>Email</label>
-                    <input className="border p-2 focus:outline-none" 
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} />     
-                </div>
-                <div className="flex flex-col py-5 focus:outline-none">
-                    <label>Password</label>
-                    <input className="border p-2" 
-                        type="password" 
-                        value={password} 
-                        autoComplete='on'
-                        onChange={(e) => setPassword(e.target.value)}/>    
-                </div>
-                <button className="rounded border border-gray-400 bg-gray-500 px-4 py-2 text-sm font-medium text-white hover:bg-transparent hover:bg-gray-400">Sign up</button>
-            </form>
-        </div>
+        </div> 
     )
 };
 

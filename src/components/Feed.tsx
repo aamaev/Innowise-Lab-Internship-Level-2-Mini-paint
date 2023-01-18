@@ -6,10 +6,6 @@ import { onValue, ref as refDB } from 'firebase/database';
 import Header from './Header';
 import FeedGrid from './FeedGrid';
 
-export interface StorageReference{
-    name: string,
-}
-
 const Feed = () => {
     const { email } = useAppSelector(state => state.userReducer);
     const [usersEmails, setUserEmail] = useState<string[]>([]);

@@ -4,7 +4,7 @@ import Toolbar from './Toolbar';
 import { useAppSelector } from '../hooks/redux';
 import Header from './Header';
 
-const CreateImg: React.FC  = () => {
+const CreateImg = () => {
     const { email } = useAppSelector(state => state.userReducer);
     
     return (
