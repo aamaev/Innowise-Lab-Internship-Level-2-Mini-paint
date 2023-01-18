@@ -1,4 +1,4 @@
-**CLEVER TO-DO LIST**
+**MINI-PAINT**
 =====================
 
 ## TASK
