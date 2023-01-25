@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { ref, set } from 'firebase/database';
 import { IAuthContext } from "../interfaces/interfaces";
-import { useAppDispatch } from '../hooks/redux';
-import { userSlice } from '../reducers/UserSlice';
+import { useAppDispatch } from '../hooks/hooks';
 import { AuthContextProviderProps } from "../interfaces/interfaces";
+import { setUserEmail } from "../store/Redux-slices/userSlice";
 
 
 const authContextDefaults: IAuthContext = {
@@ -19,7 +19,6 @@ const authContextDefaults: IAuthContext = {
 export const AuthContext = createContext<IAuthContext>(authContextDefaults);
 
 const AuthContextProvider = ({children}: AuthContextProviderProps) => {
-    const { setUserEmail } = userSlice.actions;
     const dispatch = useAppDispatch(); 
 
     const navigate = useNavigate();
@@ -37,7 +36,7 @@ const AuthContextProvider = ({children}: AuthContextProviderProps) => {
             }
         });
         return subscriber; 
-    }, [initializing, dispatch, setUserEmail]);
+    }, [initializing, dispatch]);
 
     if (initializing) {
         return null;

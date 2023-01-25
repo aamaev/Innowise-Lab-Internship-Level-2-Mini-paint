@@ -1,12 +1,9 @@
 import React from 'react';
 import { BsFillEraserFill, BsFillPencilFill, BsSquare, BsSlashLg, BsCircle, BsStar } from 'react-icons/bs';
-import { useAppDispatch } from '../hooks/redux';
-import { pencilSlice } from '../reducers/PencilSlice';
+import { useAppDispatch } from '../hooks/hooks';
+import { setLineColor, setLineWidth, setType } from '../store/Redux-slices/pencilSlice';
 
 const Toolbar = () => {
-    const { setLineColor } = pencilSlice.actions;
-    const { setLineWidth } = pencilSlice.actions;
-    const { setType } = pencilSlice.actions;
     const dispatch = useAppDispatch(); 
 
     const colorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

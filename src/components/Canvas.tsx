@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useAppSelector } from '../hooks/redux';
+import { useAppSelector } from '../hooks/hooks';
 import SaveImg from './SaveImg';
 import {draw, startDrawing, endDrawing} from '../Tools/drawTools';
 
@@ -8,9 +8,7 @@ const Canvas = () => {
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
     const [isDrawing, setIsDrawing] = useState<boolean>(false);
     const [image, setImage] = useState('');
-    const { lineColor } = useAppSelector(state => state.pencilReducer);
-    const { lineWidth } = useAppSelector(state => state.pencilReducer);
-    const { type } = useAppSelector(state => state.pencilReducer);
+    const {lineColor, lineWidth, type} = useAppSelector(state => state.pencil);
 
     const mouseDownHandler = useCallback((e: any) => {
         startDrawing(e, type, ctxRef, canvasRef);

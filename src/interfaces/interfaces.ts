@@ -11,6 +11,12 @@ export interface UserState {
     email: string | null
 }
 
+export interface ImagesState {
+    loading: boolean, 
+    images: ImageInfo[],
+    error: object | null
+}
+
 export interface IAuthContext {
     signIn: (auth: any, email: string, password: string) => void,
     signUp: (auth: any, email: string, password: string) => void,
@@ -39,6 +45,11 @@ export interface FeedItemProps {
 
 export interface SaveImgProps { 
     img: string;
+}
+
+export interface ImageInfo {
+    email: string,
+    imagesrc: string
 }
 
 

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PencilState } from "../interfaces/interfaces";
+import { PencilState } from "../../interfaces/interfaces";
 
-const initialState: PencilState= {
+const initialState: PencilState = {
     lineColor: 'black',
     lineWidth: 1,
     type: '',
@@ -24,3 +24,4 @@ export const pencilSlice = createSlice({
 });
 
 export default pencilSlice.reducer;
+export const { setLineColor, setLineWidth, setType } = pencilSlice.actions;

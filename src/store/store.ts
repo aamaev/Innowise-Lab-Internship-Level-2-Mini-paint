@@ -1,18 +1,19 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import pencilReducer from '../reducers/PencilSlice';
-import userReducer from '../reducers/UserSlice';
+import pencilReducer from './Redux-slices/pencilSlice';
+import userReducer from './Redux-slices/userSlice';
+import imagesSlice from "./Redux-slices/imagesSlice";
 
 const rootReducer = combineReducers({
-    userReducer,
-    pencilReducer
+    user: userReducer,
+    pencil: pencilReducer,
+    images: imagesSlice
 })
 
-export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer      
-    })
-}
+const store = configureStore({
+    reducer: rootReducer  
+});   
 
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
+export default store;
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch;

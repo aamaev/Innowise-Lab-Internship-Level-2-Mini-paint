@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { useAppSelector } from '../hooks/redux';
+import { useAppSelector } from '../hooks/hooks';
 import { onValue, ref as refDB } from 'firebase/database';
 import Header from './Header';
 import FeedGrid from './FeedGrid';
 
 const Feed = () => {
-    const { email } = useAppSelector(state => state.userReducer);
+    const {email} = useAppSelector(state => state.user);
     const [usersEmails, setUserEmail] = useState<string[]>([]);
     const [filter, setFilter] = useState<string>('');
     const navigate = useNavigate();

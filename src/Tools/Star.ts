@@ -5,7 +5,7 @@ let mousePosition = {
 
 let saved = '';
 
-export const startDrawingStar = (e: MouseEvent | any, ctxRef: any, canvasRef: any) => {
+export const startDrawingStar = (e: any, ctxRef: any, canvasRef: any) => {
     ctxRef.current!.beginPath();
     mousePosition.startX = e.pageX - e.target.offsetLeft;
     mousePosition.startY = e.pageY - e.target.offsetTop;
@@ -34,7 +34,7 @@ const star = (ctx: any, R: number, cX: number, cY: number, N: number) => {
     ctx.stroke();
   }
 
-export const drawStar = (e: MouseEvent | any, ctxRef: any, lineColor: string, canvasRef: any) => {
+export const drawStar = (e: any, ctxRef: any, lineColor: string, canvasRef: any) => {
     let currentX = e.pageX - e.target.offsetLeft;
     let currentY = e.pageY - e.target.offsetTop;
     let width =  currentX - mousePosition.startX;
