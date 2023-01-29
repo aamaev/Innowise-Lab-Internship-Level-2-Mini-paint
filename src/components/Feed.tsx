@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { onValue, ref as refDB } from 'firebase/database';
 import { db } from '../firebase';
 import { useAppSelector } from '../hooks/hooks';
-import { onValue, ref as refDB } from 'firebase/database';
-import Header from './Header';
-import FeedGrid from './FeedGrid';
+import Header from './Header/Header';
+import FeedGrid from './FeedGrid/FeedGrid';
 
 const Feed = () => {
     const {email} = useAppSelector(state => state.user);
@@ -13,13 +13,12 @@ const Feed = () => {
     const navigate = useNavigate();
 
     const fetchAllUsers = () => {
-        const emails: string[] = [];
         onValue(refDB(db, `users/`), (snapshot) => {
             const data = snapshot.val();
             if (data){
                 const keys = Object.keys(data);
-                keys.forEach((key) => {
-                    emails.push(data[key].email)
+                const emails: string[] = keys.map((key) => {
+                    return data[key].email
                 })
                 setUserEmail(emails);
             }
@@ -33,6 +32,10 @@ const Feed = () => {
     const userFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setFilter(value);
+    }
+
+    const navigateHandler = () => {
+        navigate('/create');
     }
 
     return (
@@ -50,7 +53,7 @@ const Feed = () => {
                 </select>
                 <div className='ml-3'>
                     <button className="rounded border border-green-200 bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-transparent hover:bg-green-400"
-                            onClick={() => navigate('/create')}> Create! </button>
+                            onClick={navigateHandler}> Create! </button>
                 </div>
             </div>
             <FeedGrid filter = { filter } />  

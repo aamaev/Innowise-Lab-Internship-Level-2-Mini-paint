@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
-import { HeaderProps } from '../interfaces/interfaces';
+import { AuthContext } from '../../contexts/AuthContext/AuthContext';
+import { HeaderProps } from './HeaderInterfaces';
 
 const Header = ({email}: HeaderProps) => {
     const { logOut } = useContext(AuthContext);

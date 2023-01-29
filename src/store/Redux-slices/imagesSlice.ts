@@ -1,8 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ImageInfo } from "../../interfaces/interfaces";
-import { ImagesState } from "../../interfaces/interfaces";
-import { db } from "../../firebase";
 import { ref, get } from 'firebase/database';
+import { db } from "../../firebase";
+
+interface ImageInfo {
+    email: string,
+    imagesrc: string
+}
+
+interface ImagesState {
+    loading: boolean, 
+    images: ImageInfo[],
+    error: object | null
+}
 
 const initialState: ImagesState = {
     loading: false,

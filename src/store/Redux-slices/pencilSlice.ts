@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PencilState } from "../../interfaces/interfaces";
+
+interface PencilState {
+    lineColor: string;
+    lineWidth: number;
+    type: string;
+}
 
 const initialState: PencilState = {
     lineColor: 'black',

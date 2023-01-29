@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAppSelector } from '../hooks/hooks';
-import SaveImg from './SaveImg';
 import {draw, startDrawing, endDrawing} from '../Tools/drawTools';
+import SaveImg from './SaveImg/SaveImg';
+
 
 const Canvas = () => {
+    const [isDrawing, setIsDrawing] = useState<boolean>(false);
+    const [image, setImage] = useState<string>('');
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-    const [isDrawing, setIsDrawing] = useState<boolean>(false);
-    const [image, setImage] = useState('');
     const {lineColor, lineWidth, type} = useAppSelector(state => state.pencil);
 
-    const mouseDownHandler = useCallback((e: any) => {
+    const mouseDownHandler = useCallback((e: MouseEvent) => {
+        console.log(e);
         startDrawing(e, type, ctxRef, canvasRef);
         setIsDrawing(true);
     }, [type]);
 
-    const mouseMoveHandler = useCallback((e: any) => {
+    const mouseMoveHandler = useCallback((e: MouseEvent) => {
         if (!isDrawing){
             return;
         }

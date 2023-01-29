@@ -1,32 +1,33 @@
-let mousePosition = {
+import { MutableRefObject } from "react";
+
+const mouseState = {
     startX: 0,
-    startY: 0
+    startY: 0,
+    saved: ''
 };
 
-let saved = '';
-
-export const startDrawingCircle = (e: MouseEvent | any, ctxRef: any, canvasRef: any) => {
+export const startDrawingCircle = (e: MouseEvent, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
     ctxRef.current!.beginPath();
-    mousePosition.startX = e.pageX - e.target.offsetLeft;
-    mousePosition.startY = e.pageY - e.target.offsetTop;
-    saved = canvasRef.current.toDataURL();
+    mouseState.startX = e.pageX - canvasRef.current!.offsetLeft;
+    mouseState.startY = e.pageY - canvasRef.current!.offsetTop;
+    mouseState.saved = canvasRef.current!.toDataURL();
 } 
 
-export const drawCircle = (e: MouseEvent | any, ctxRef: any, lineColor: string, canvasRef: any) => {
-    let currentX = e.pageX - e.target.offsetLeft;
-    let currentY = e.pageY - e.target.offsetTop;
-    let width =  currentX - mousePosition.startX;
-    let height =  currentY - mousePosition.startY;
+export const drawCircle = (e: MouseEvent, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>, lineColor: string, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
+    let currentX = e.pageX - canvasRef.current!.offsetLeft;
+    let currentY = e.pageY - canvasRef.current!.offsetTop;
+    let width =  currentX - mouseState.startX;
+    let height =  currentY - mouseState.startY;
     let d = Math.sqrt((Math.pow(width,2) + Math.pow(height, 2)));
     const img = new Image();
-    img.src = saved;
+    img.src = mouseState.saved;
     img.onload = () => {
-        ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-        ctxRef.current.drawImage(img, 0, 0,canvasRef.current.width, canvasRef.current.height);
-        ctxRef.current.beginPath();
-        ctxRef.current.arc(mousePosition.startX, mousePosition.startY, d/2, 0, 2 * Math.PI);;
-        ctxRef.current.fillStyle = lineColor;
-        ctxRef.current.fill();
-        ctxRef.current.stroke();
+        ctxRef.current!.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
+        ctxRef.current!.drawImage(img, 0, 0,canvasRef.current!.width, canvasRef.current!.height);
+        ctxRef.current!.beginPath();
+        ctxRef.current!.arc(mouseState.startX, mouseState.startY, d/2, 0, 2 * Math.PI);;
+        ctxRef.current!.fillStyle = lineColor;
+        ctxRef.current!.fill();
+        ctxRef.current!.stroke();
     } 
 }

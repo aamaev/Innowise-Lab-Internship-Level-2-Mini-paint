@@ -1,7 +1,8 @@
 import React from 'react';
-import { BsFillEraserFill, BsFillPencilFill, BsSquare, BsSlashLg, BsCircle, BsStar } from 'react-icons/bs';
-import { useAppDispatch } from '../hooks/hooks';
 import { setLineColor, setLineWidth, setType } from '../store/Redux-slices/pencilSlice';
+import { useAppDispatch } from '../hooks/hooks';
+import { ToolBarButtons } from '../configs/ToolbarButtons.config';
+import uuid from 'react-uuid';
 
 const Toolbar = () => {
     const dispatch = useAppDispatch(); 
@@ -14,38 +15,15 @@ const Toolbar = () => {
         dispatch(setLineWidth(Number(e.target.value))); 
     }
 
-    const setPencil = () => {
-        dispatch(setType('PENCIL')); 
-    }
-
-    const setErasure = () => {
-        dispatch(setType('ERASURE')); 
-    }
-
-    const setSquare = () => {
-        dispatch(setType('SQUARE'));
-    }
-
-    const setLine = () => {
-        dispatch(setType('LINE'))
-    }
-
-    const setCircle = () => {
-        dispatch(setType('CIRCLE')); 
-    }
-
-    const setStar = () => {
-        dispatch(setType('STAR'));
+    const dispatchHandler = (type: string) => {
+        dispatch(setType(type)); 
     }
 
     return (
         <div className='border border-black flex flex-col mr-52'> 
-            <button className='m-4 block'><BsFillPencilFill size={30} onClick={setPencil} /></button>    
-            <button className='m-4 block'><BsFillEraserFill size={30} onClick={setErasure} /></button>  
-            <button className='m-4 block'><BsSquare size={30} onClick={setSquare} /></button>  
-            <button className='m-4 block'><BsSlashLg size={30} onClick={setLine} /></button>  
-            <button className='m-4 block'><BsCircle size={30} onClick={setCircle} /></button>
-            <button className='m-4 block'><BsStar size={30} onClick={setStar} /></button>
+            {ToolBarButtons.map(btn => {
+                return <button key={uuid()} className='m-4 block' onClick={() => dispatchHandler(btn.handler)}><btn.icon size={30} /></button>  
+            })}
             <input type='color' 
                 onChange={colorHandler}
                 className='m-4 w-8 h-6'

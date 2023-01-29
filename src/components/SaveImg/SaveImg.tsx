@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import uuid from 'react-uuid';
-import { useAppSelector } from '../hooks/hooks';
-import { SaveImgProps } from '../interfaces/interfaces';
-import { db } from '../firebase';
+import { useAppSelector } from '../../hooks/hooks';
+import { db } from '../../firebase';
 import { ref, set } from 'firebase/database';
+import { SaveImgProps } from './SaveImgInterfaces';
+import uuid from 'react-uuid';
 
 const SaveImg = ({ img }: SaveImgProps) => {
     const navigate = useNavigate(); 

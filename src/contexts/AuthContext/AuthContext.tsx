@@ -1,18 +1,18 @@
 import React, { useState, createContext, useEffect } from "react";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import toast, {Toaster} from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, db } from '../../firebase';
 import { ref, set } from 'firebase/database';
-import { IAuthContext } from "../interfaces/interfaces";
-import { useAppDispatch } from '../hooks/hooks';
-import { AuthContextProviderProps } from "../interfaces/interfaces";
-import { setUserEmail } from "../store/Redux-slices/userSlice";
+import { Auth } from "firebase/auth";
+import { useAppDispatch } from '../../hooks/hooks';
+import { setUserEmail } from "../../store/Redux-slices/userSlice";
+import { IAuthContext, AuthContextProviderProps } from "./AuthContextInterfaces";
+import toast, {Toaster} from 'react-hot-toast';
 
 
 const authContextDefaults: IAuthContext = {
-    signIn: (auth: object, email: string, password: string) => null,
-    signUp: (auth: object, email: string, password: string) => null,
+    signIn: (auth: Auth, email: string, password: string) => null,
+    signUp: (auth: Auth, email: string, password: string) => null,
     logOut: () => null
 };
 
@@ -42,22 +42,18 @@ const AuthContextProvider = ({children}: AuthContextProviderProps) => {
         return null;
     }
     
-    const signIn = async (auth: any, email: string, password: string) => {
-        const passwordInput: any = document.querySelector('.password-input');
-        const emailInput: any = document.querySelector('.email-input');
+    const signIn = async (auth: Auth, email: string, password: string) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             toast.success(`${userCredential.user.email}, welcome!`);
             navigate('/feed');
         } catch {
             toast.error("Check your login and password");
-            passwordInput!.style = 'border-color: red';
-            emailInput!.style = 'border-color: red';
             navigate('/signin');
         }
     }
     
-    const signUp = async (auth: any, email: string, password: string) => {
+    const signUp = async (auth: Auth, email: string, password: string) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             toast.success(`${userCredential.user.email}, welcome!`);

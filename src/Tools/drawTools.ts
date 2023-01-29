@@ -1,10 +1,11 @@
+import { MutableRefObject } from "react";
 import { startDrawingPencil, endDrawingPencil, drawPencil } from '../Tools/Pencil';
 import { startDrawingSquare, drawSquare } from '../Tools/Square';
 import { startDrawingCircle, drawCircle } from '../Tools/Circle';
 import { startDrawingLine, drawLine } from '../Tools/Line';
 import { startDrawingStar, drawStar } from '../Tools/Star';
 
-export const draw = (e: MouseEvent, type: string, ctxRef: any, canvasRef: any, lineColor: string): void => {
+export const draw = (e: MouseEvent, type: string, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>, canvasRef: MutableRefObject<HTMLCanvasElement | null>, lineColor: string): void => {
     switch(type){
         case 'PENCIL': 
             drawPencil(e, ctxRef);
@@ -28,7 +29,7 @@ export const draw = (e: MouseEvent, type: string, ctxRef: any, canvasRef: any, l
     }
 }
 
-export const startDrawing = (e: MouseEvent, type: string, ctxRef: any, canvasRef: any): void => {
+export const startDrawing = (e: MouseEvent, type: string, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>, canvasRef: MutableRefObject<HTMLCanvasElement | null>): void => {
     switch(type){
         case 'PENCIL': 
             startDrawingPencil(e, ctxRef);
@@ -52,7 +53,7 @@ export const startDrawing = (e: MouseEvent, type: string, ctxRef: any, canvasRef
     }
 }
 
-export const endDrawing = (type: string, ctxRef: any): void => {
+export const endDrawing = (type: string, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>): void => {
     switch(type){
         case 'PENCIL': 
             endDrawingPencil(ctxRef);

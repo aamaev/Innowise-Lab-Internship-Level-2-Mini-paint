@@ -1,33 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, FormEvent, ChangeEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { auth } from '../firebase';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext/AuthContext';
 
 const AuthPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { pathname } = useLocation();
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const { signIn, signUp } = useContext(AuthContext);
+    const { pathname } = useLocation();
 
-    const signInForm = (e: React.FormEvent) => {
+    const signInForm = (e: FormEvent) => {
         e.preventDefault();
         signIn(auth, email, password);
     }
 
-    const signUpForm = (e: React.FormEvent) => {
+    const signUpForm = (e: FormEvent) => {
         e.preventDefault();
         signUp(auth, email, password);
     }
 
-    const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);    
     }
 
-    const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);    
     }
 
-    const signHandler = (e: React.FormEvent) => {
+    const signHandler = (e: FormEvent) => {
         if (pathname === '/signin') {
             return signInForm(e);
         } else {

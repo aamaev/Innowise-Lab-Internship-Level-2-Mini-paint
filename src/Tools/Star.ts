@@ -1,23 +1,22 @@
-let mousePosition = {
+import { MutableRefObject } from "react";
+
+const mouseState = {
     startX: 0,
-    startY: 0
+    startY: 0,
+    saved: ''
 };
 
-let saved = '';
-
-export const startDrawingStar = (e: any, ctxRef: any, canvasRef: any) => {
+export const startDrawingStar = (e: MouseEvent, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
     ctxRef.current!.beginPath();
-    mousePosition.startX = e.pageX - e.target.offsetLeft;
-    mousePosition.startY = e.pageY - e.target.offsetTop;
-    saved = canvasRef.current.toDataURL();
+    mouseState.startX = e.pageX - canvasRef.current!.offsetLeft;
+    mouseState.startY = e.pageY - canvasRef.current!.offsetTop;
+    mouseState.saved = canvasRef.current!.toDataURL();
 } 
 
-const star = (ctx: any, R: number, cX: number, cY: number, N: number) => {
-    ctx.beginPath();
-    ctx.moveTo(cX + R, cY);
-    let theta;
-    let x;
-    let y;
+const star = (ctx: CanvasRenderingContext2D | null, R: number, cX: number, cY: number, N: number) => {
+    ctx!.beginPath();
+    ctx!.moveTo(cX + R, cY);
+    let theta, x, y;
     for (let i = 1; i <= N * 2; i++) {
         if (i % 2 === 0) {
             theta = i * (Math.PI ) / (N );
@@ -28,25 +27,25 @@ const star = (ctx: any, R: number, cX: number, cY: number, N: number) => {
             x = cX + ((R/2) * Math.cos(theta));
             y = cY + ((R/2) * Math.sin(theta));
         }
-        ctx.lineTo(x, y);
+        ctx!.lineTo(x, y);
     }
-    ctx.closePath();
-    ctx.stroke();
+    ctx!.closePath();
+    ctx!.stroke();
   }
 
-export const drawStar = (e: any, ctxRef: any, lineColor: string, canvasRef: any) => {
-    let currentX = e.pageX - e.target.offsetLeft;
-    let currentY = e.pageY - e.target.offsetTop;
-    let width =  currentX - mousePosition.startX;
+export const drawStar = (e: MouseEvent, ctxRef: MutableRefObject<CanvasRenderingContext2D | null>, lineColor: string, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
+    let currentX = e.pageX - canvasRef.current!.offsetLeft;
+    let currentY = e.pageY - canvasRef.current!.offsetTop;
+    let width =  currentX - mouseState.startX;
     const img = new Image();
-    img.src = saved;
+    img.src = mouseState.saved;
     img.onload = () => {
-        ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-        ctxRef.current.drawImage(img, 0, 0,canvasRef.current.width, canvasRef.current.height);
-        ctxRef.current.beginPath();
+        ctxRef.current!.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
+        ctxRef.current!.drawImage(img, 0, 0,canvasRef.current!.width, canvasRef.current!.height);
+        ctxRef.current!.beginPath();
         star(ctxRef.current, width, currentX, currentY, 6);
-        ctxRef.current.fillStyle = lineColor;
-        ctxRef.current.fill();
-        ctxRef.current.stroke();
+        ctxRef.current!.fillStyle = lineColor;
+        ctxRef.current!.fill();
+        ctxRef.current!.stroke();
     }
 }

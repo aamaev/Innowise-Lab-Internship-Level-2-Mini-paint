@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeedItemProps } from '../interfaces/interfaces';
+import { FeedItemProps } from './FeedItemInterfaces';
 
 const FeedItem = ({ imageID }: FeedItemProps) => {  
     return (
